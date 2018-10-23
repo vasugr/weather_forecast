@@ -32,7 +32,8 @@ def scrapeit2():
 
     print(today.get_text())
 
-#print("SAN FRANCISCO: ")
+print("SAN FRANCISCO: ")
 scrapeit()
-#print("APPLE VALLEY: ")
+print("APPLE VALLEY: ")
 scrapeit2()
+
