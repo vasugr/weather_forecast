@@ -1,4 +1,5 @@
 # weather_forecast
-displays current weather conditions at
-SAN FRANCISCO DOWNTOWN 
-scrapped using BeautifulSoup
+Displays today's weather conditions at
+different cities of USA
+
+(scrapped using BeautifulSoup)
