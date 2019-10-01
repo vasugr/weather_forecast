@@ -63,8 +63,21 @@ def scrapeit4():
     today = list(p)[0]
 
     print(today.get_text())
+
+ 
+def scrapeit5():
+    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=34.0535&lon=-118.2453")
+    soup = BeautifulSoup(page.content,"html.parser")
+    div=soup.find_all('div',id="seven-day-forecast-container")
+    seven_day = list(div)[0]
+    li = seven_day.find_all('li',class_="forecast-tombstone")
+    tombstone = list(li)[0]
+    p = tombstone.find_all('p',class_="temp temp-high")
+    today = list(p)[0]
+
+    print(today.get_text())
     
-print("Today's average temperature at :\n")
+print("\nToday's temperature at :\n")
 print("SAN FRANCISCO: ")
 scrapeit()
 print("APPLE VALLEY: ")
@@ -73,3 +86,5 @@ print("MOJAVE: ")
 scrapeit3()
 print("NEW YORK: ")
 scrapeit4()
+print("LOS ANGELES: ")
+scrapeit5()
