@@ -77,7 +77,7 @@ def scrapeit5():
 
     print(today.get_text())
     
-def scrapeit6():
+def scrapeit6():#For Massachusetts
     page = requests.get("https://forecast.weather.gov/MapClick.php?lat=42.3657&lon=-71.1083#.XZc1T3X7Q-Y")
     soup = BeautifulSoup(page.content,"html.parser")
     div=soup.find_all('div',id="seven-day-forecast-container")
@@ -89,8 +89,20 @@ def scrapeit6():
 
     print(today.get_text())
     
-def scrapeit7():
+def scrapeit7():#For California City
     page = requests.get("https://forecast.weather.gov/MapClick.php?lat=35.1289&lon=-117.9856#.XZc4BnX7Q-Y")
+    soup = BeautifulSoup(page.content,"html.parser")
+    div=soup.find_all('div',id="seven-day-forecast-container")
+    seven_day = list(div)[0]
+    li = seven_day.find_all('li',class_="forecast-tombstone")
+    tombstone = list(li)[0]
+    p = tombstone.find_all('p',class_="temp temp-high")
+    today = list(p)[0]
+
+    print(today.get_text())
+    
+def scrapeit8():#For Chicago
+    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=41.8843&lon=-87.6324#.XZc573X7Q-Y")
     soup = BeautifulSoup(page.content,"html.parser")
     div=soup.find_all('div',id="seven-day-forecast-container")
     seven_day = list(div)[0]
@@ -116,3 +128,5 @@ print("MASSACHUSETTS: ")
 scrapeit6()
 print("CALIFORNIA CITY")
 scrapeit7()
+print("CHICAGO")
+scrapeit8()
