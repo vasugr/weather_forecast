@@ -11,7 +11,7 @@ def scrapeit():
 
     li = seven_day.find_all('li',class_="forecast-tombstone")
     tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="temp temp-high")
+    p = tombstone.find_all('p',class_="short-desc")
     today = list(p)[0]
 
     print(today.get_text())
@@ -27,7 +27,7 @@ def scrapeit2():
 
     li = seven_day.find_all('li',class_="forecast-tombstone")
     tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="temp temp-high")
+    p = tombstone.find_all('p',class_="short-desc")
     today = list(p)[0]
 
     print(today.get_text())
@@ -43,7 +43,7 @@ def scrapeit3():
 
     li = seven_day.find_all('li',class_="forecast-tombstone")
     tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="temp temp-high")
+    p = tombstone.find_all('p',class_="short-desc")
     today = list(p)[0]
 
     print(today.get_text())
@@ -59,7 +59,7 @@ def scrapeit4():
 
     li = seven_day.find_all('li',class_="forecast-tombstone")
     tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="temp temp-high")
+    p = tombstone.find_all('p',class_="short-desc")
     today = list(p)[0]
 
     print(today.get_text())
@@ -72,7 +72,7 @@ def scrapeit5():
     seven_day = list(div)[0]
     li = seven_day.find_all('li',class_="forecast-tombstone")
     tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="temp temp-high")
+    p = tombstone.find_all('p',class_="short-desc")
     today = list(p)[0]
 
     print(today.get_text())
@@ -84,7 +84,7 @@ def scrapeit6():#For Massachusetts
     seven_day = list(div)[0]
     li = seven_day.find_all('li',class_="forecast-tombstone")
     tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="temp temp-high")
+    p = tombstone.find_all('p',class_="short-desc")
     today = list(p)[0]
 
     print(today.get_text())
@@ -96,7 +96,7 @@ def scrapeit7():#For California City
     seven_day = list(div)[0]
     li = seven_day.find_all('li',class_="forecast-tombstone")
     tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="temp temp-high")
+    p = tombstone.find_all('p',class_="short-desc")
     today = list(p)[0]
 
     print(today.get_text())
@@ -108,7 +108,7 @@ def scrapeit8():#For Chicago
     seven_day = list(div)[0]
     li = seven_day.find_all('li',class_="forecast-tombstone")
     tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="temp temp-high")
+    p = tombstone.find_all('p',class_="short-desc")
     today = list(p)[0]
 
     print(today.get_text())
