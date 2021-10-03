@@ -113,7 +113,7 @@ def scrapeit8():#For Chicago
 
     print(today.get_text())
 
-def scrapeit8():#For pHILADELPHIA
+def scrapeit9():#For pHILADELPHIA
     page = requests.get("https://forecast.weather.gov/MapClick.php?lat=38.8182&lon=-76.1587")
     soup = BeautifulSoup(page.content,"html.parser")
     div=soup.find_all('div',id="seven-day-forecast-container")
