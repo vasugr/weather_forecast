@@ -112,6 +112,18 @@ def scrapeit8():#For Chicago
     today = list(p)[0]
 
     print(today.get_text())
+
+def scrapeit8():#For pHILADELPHIA
+    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=38.8182&lon=-76.1587")
+    soup = BeautifulSoup(page.content,"html.parser")
+    div=soup.find_all('div',id="seven-day-forecast-container")
+    seven_day = list(div)[0]
+    li = seven_day.find_all('li',class_="forecast-tombstone")
+    tombstone = list(li)[0]
+    p = tombstone.find_all('p',class_="short-desc")
+    today = list(p)[0]
+
+    print(today.get_text())
     
 print("\nToday's temperature at :\n")
 print("SAN FRANCISCO: ")
@@ -130,3 +142,5 @@ print("CALIFORNIA CITY: ")
 scrapeit7()
 print("CHICAGO: ")
 scrapeit8()
+print("PHILADELPHIA: ")
+scrapeit9()
