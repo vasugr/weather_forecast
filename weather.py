@@ -136,6 +136,16 @@ def scrapeit11():#For Miami
     today = list(p)[0]
     print("\t" + today.get_text())
     
+def scrapeit12():#For Detroit
+    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=42.3317&lon=-83.048")
+    soup = BeautifulSoup(page.content,"html.parser")
+    div=soup.find_all('div',id="seven-day-forecast-container")
+    seven_day = list(div)[0]
+    li = seven_day.find_all('li',class_="forecast-tombstone")
+    tombstone = list(li)[0]
+    p = tombstone.find_all('p',class_="short-desc")
+    today = list(p)[0]
+    print("\t" + today.get_text())
 
     
 print("\nWeather conditions later today at :\n")
@@ -161,3 +171,5 @@ print("HOUSTON: ")
 scrapeit10()
 print("MIAMI: ")
 scrapeit11()
+print("DETROIT: ")
+scrapeit12()
