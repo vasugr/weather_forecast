@@ -1,175 +1,98 @@
 import requests
 from bs4 import BeautifulSoup
-def scrapeit(): # For San Francisco
-    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=37.7772&lon=-122.4168#.W8Xep99fgUQ")
-    soup = BeautifulSoup(page.content,"html.parser")
-    div=soup.find_all('div',id="seven-day-forecast-container")
-    seven_day = list(div)[0]
 
-    li = seven_day.find_all('li',class_="forecast-tombstone")
-    tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="short-desc")
-    today = list(p)[0]
+# Function to fetch page content with error handling
+def get_page_content(url):
+    try:
+        page = requests.get(url)
+        page.raise_for_status()  # Raise HTTPError for bad responses
+        return page.content
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching page content: {e}")
+        return None
 
-    print("\t" + today.get_text())
-   
-def scrapeit2(): # For Apple valley
-    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=34.5232&lon=-117.2157#.W89OAo5fgUQ")
-    soup = BeautifulSoup(page.content,"html.parser")
-    div=soup.find_all('div',id="seven-day-forecast-container")
-    seven_day = list(div)[0]
-
-    li = seven_day.find_all('li',class_="forecast-tombstone")
-    tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="short-desc")
-    today = list(p)[0]
-
-    print("\t" + today.get_text())
+# Function to get weather information for a city
+def get_weather(city, lat, lon):
+    # Construct URL for the city
+    url = f"https://forecast.weather.gov/MapClick.php?lat={lat}&lon={lon}"
     
-def scrapeit3(): # For Mojave
-    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=35.1289&lon=-117.9856#.W89Q_Y5fgUQ")
-    soup = BeautifulSoup(page.content,"html.parser")
-    div=soup.find_all('div',id="seven-day-forecast-container")
-    seven_day = list(div)[0]
+    # Fetch page content
+    page_content = get_page_content(url)
 
-    li = seven_day.find_all('li',class_="forecast-tombstone")
-    tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="short-desc")
-    today = list(p)[0]
+    # If page content is available, parse and print weather info
+    if page_content is not None:
+        soup = BeautifulSoup(page_content, "html.parser")
+        div = soup.find_all('div', id="seven-day-forecast-container")
+        seven_day = list(div)[0]
+        li = seven_day.find_all('li', class_="forecast-tombstone")
+        tombstone = list(li)[0]
+        p = tombstone.find_all('p', class_="short-desc")
+        today = list(p)[0]
+        print(f"\t{city}: {today.get_text()}")
+    else:
+        print(f"Failed to retrieve data for {city}. Please check your internet connection.")
 
-    print("\t" + today.get_text())
-    
-def scrapeit4(): # For New York
-    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=40.7146&lon=-74.0071#.XZNKc3EzYUM")
-    soup = BeautifulSoup(page.content,"html.parser")
-    div=soup.find_all('div',id="seven-day-forecast-container")
-    seven_day = list(div)[0]
+# Functions to get weather for different cities
+def scrapeit():
+    get_weather("San Francisco", 37.7772, -122.4168)
 
-    li = seven_day.find_all('li',class_="forecast-tombstone")
-    tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="short-desc")
-    today = list(p)[0]
+def scrapeit2():
+    get_weather("Apple Valley", 34.5232, -117.2157)
 
-    print("\t" + today.get_text())
+def scrapeit3():
+    get_weather("Mojave", 35.1289, -117.9856)
 
- 
-def scrapeit5(): # For Los Angeles
-    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=34.0535&lon=-118.2453")
-    soup = BeautifulSoup(page.content,"html.parser")
-    div=soup.find_all('div',id="seven-day-forecast-container")
-    seven_day = list(div)[0]
-    li = seven_day.find_all('li',class_="forecast-tombstone")
-    tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="short-desc")
-    today = list(p)[0]
+def scrapeit4():
+    get_weather("New York", 40.7146, -74.0071)
 
-    print("\t" + today.get_text())
-    
-def scrapeit6():#For Massachusetts
-    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=42.3657&lon=-71.1083#.XZc1T3X7Q-Y")
-    soup = BeautifulSoup(page.content,"html.parser")
-    div=soup.find_all('div',id="seven-day-forecast-container")
-    seven_day = list(div)[0]
-    li = seven_day.find_all('li',class_="forecast-tombstone")
-    tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="short-desc")
-    today = list(p)[0]
+def scrapeit5():
+    get_weather("Los Angeles", 34.0535, -118.2453)
 
-    print("\t" + today.get_text())
-    
-def scrapeit7():#For California City
-    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=35.1289&lon=-117.9856#.XZc4BnX7Q-Y")
-    soup = BeautifulSoup(page.content,"html.parser")
-    div=soup.find_all('div',id="seven-day-forecast-container")
-    seven_day = list(div)[0]
-    li = seven_day.find_all('li',class_="forecast-tombstone")
-    tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="short-desc")
-    today = list(p)[0]
+def scrapeit6():
+    get_weather("Massachusetts", 42.3657, -71.1083)
 
-    print("\t" + today.get_text())
-    
-def scrapeit8():#For Chicago
-    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=41.8843&lon=-87.6324#.XZc573X7Q-Y")
-    soup = BeautifulSoup(page.content,"html.parser")
-    div=soup.find_all('div',id="seven-day-forecast-container")
-    seven_day = list(div)[0]
-    li = seven_day.find_all('li',class_="forecast-tombstone")
-    tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="short-desc")
-    today = list(p)[0]
+def scrapeit7():
+    get_weather("California City", 35.1289, -117.9856)
 
-    print("\t" + today.get_text())
+def scrapeit8():
+    get_weather("Chicago", 41.8843, -87.6324)
 
-def scrapeit9():#For Philadelphia
-    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=38.8182&lon=-76.1587")
-    soup = BeautifulSoup(page.content,"html.parser")
-    div=soup.find_all('div',id="seven-day-forecast-container")
-    seven_day = list(div)[0]
-    li = seven_day.find_all('li',class_="forecast-tombstone")
-    tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="short-desc")
-    today = list(p)[0]
-    print("\t" + today.get_text())
-    
+def scrapeit9():
+    get_weather("Philadelphia", 38.8182, -76.1587)
 
-def scrapeit10():#For Houston
-    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=29.7608&lon=-95.3695#.YVmcH1NByJA")
-    soup = BeautifulSoup(page.content,"html.parser")
-    div=soup.find_all('div',id="seven-day-forecast-container")
-    seven_day = list(div)[0]
-    li = seven_day.find_all('li',class_="forecast-tombstone")
-    tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="short-desc")
-    today = list(p)[0]
-    print("\t" + today.get_text())
-    
-    
-def scrapeit11():#For Miami
-    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=25.7748&lon=-80.1977#.YVmiPFNByJA")
-    soup = BeautifulSoup(page.content,"html.parser")
-    div=soup.find_all('div',id="seven-day-forecast-container")
-    seven_day = list(div)[0]
-    li = seven_day.find_all('li',class_="forecast-tombstone")
-    tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="short-desc")
-    today = list(p)[0]
-    print("\t" + today.get_text())
-    
-def scrapeit12():#For Detroit
-    page = requests.get("https://forecast.weather.gov/MapClick.php?lat=42.3317&lon=-83.048")
-    soup = BeautifulSoup(page.content,"html.parser")
-    div=soup.find_all('div',id="seven-day-forecast-container")
-    seven_day = list(div)[0]
-    li = seven_day.find_all('li',class_="forecast-tombstone")
-    tombstone = list(li)[0]
-    p = tombstone.find_all('p',class_="short-desc")
-    today = list(p)[0]
-    print("\t" + today.get_text())
+def scrapeit10():
+    get_weather("Houston", 29.7608, -95.3695)
 
-    
-print("\nWeather conditions later today at :\n")
-print("SAN FRANCISCO: ")
-scrapeit()
-print("APPLE VALLEY: ")
-scrapeit2()
-print("MOJAVE: ")
-scrapeit3()
-print("NEW YORK: ")
-scrapeit4()
-print("LOS ANGELES: ")
-scrapeit5()
-print("MASSACHUSETTS: ")
-scrapeit6()
-print("CALIFORNIA CITY: ")
-scrapeit7()
-print("CHICAGO: ")
-scrapeit8()
-print("PHILADELPHIA: ")
-scrapeit9()
-print("HOUSTON: ")
-scrapeit10()
-print("MIAMI: ")
-scrapeit11()
-print("DETROIT: ")
-scrapeit12()
+def scrapeit11():
+    get_weather("Miami", 25.7748, -80.1977)
+
+def scrapeit12():
+    get_weather("Detroit", 42.3317, -83.048)
+
+# Main execution block
+if __name__ == "__main__":
+    print("\nWeather conditions later today at :\n")
+    print("SAN FRANCISCO: ")
+    scrapeit()
+    print("APPLE VALLEY: ")
+    scrapeit2()
+    print("MOJAVE: ")
+    scrapeit3()
+    print("NEW YORK: ")
+    scrapeit4()
+    print("LOS ANGELES: ")
+    scrapeit5()
+    print("MASSACHUSETTS: ")
+    scrapeit6()
+    print("CALIFORNIA CITY: ")
+    scrapeit7()
+    print("CHICAGO: ")
+    scrapeit8()
+    print("PHILADELPHIA: ")
+    scrapeit9()
+    print("HOUSTON: ")
+    scrapeit10()
+    print("MIAMI: ")
+    scrapeit11()
+    print("DETROIT: ")
+    scrapeit12()
