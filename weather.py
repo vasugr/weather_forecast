@@ -1,6 +1,7 @@
 import json
 import requests
 from bs4 import BeautifulSoup
+from pylsy import pylsytable
 
 def load_cities(file_path):
     with open(file_path, 'r') as file:
@@ -39,14 +40,32 @@ class WeatherScraper:
         page_content = self._get_page_content(url)
         weather = self._extract_weather_from_page(page_content)
         if weather:
-            return f"{city.upper()}: {weather}"
-        return f"{city.upper()}: Unable to retrieve data. Please check your internet connection."
+            # return f"{city.upper()}: {weather}"
+            return city.upper(), weather
+        return city.upper(), "Unable to retrieve data. Please check your internet connection."
 
     def scrape_all_weather(self):
+
+        # Initiate pylsy table with desired attributes
+        attrs = ["LOCATION", "FORECAST"]
+        table = pylsytable(attrs)
+        locations = []
+        forecasts = []
+
         print("\nWeather conditions later today:\n")
         for city, coords in self.cities.items():
             weather_info = self._get_weather(city, coords['lat'], coords['lon'])
-            print(f"    {weather_info}")
+            # print(f"    {weather_info}")
+            # Store weather_info in two separate lists to feed into pylsy
+            locations.append(weather_info[0])
+            forecasts.append(weather_info[1])
+
+        # Feed data into pylsy table
+        table.add_data("LOCATION", locations)
+        table.add_data("FORECAST", forecasts)
+        
+        print(table)
+
 
 if __name__ == "__main__":
     scraper = WeatherScraper('cities.json')
