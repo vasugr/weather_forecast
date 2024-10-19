@@ -1,0 +1,14 @@
+{
+    "San Francisco": {"lat": 37.7772, "lon": -122.4168},
+    "Apple Valley": {"lat": 34.5232, "lon": -117.2157},
+    "Mojave": {"lat": 35.1289, "lon": -117.9856},
+    "New York": {"lat": 40.7146, "lon": -74.0071},
+    "Los Angeles": {"lat": 34.0535, "lon": -118.2453},
+    "Massachusetts": {"lat": 42.3657, "lon": -71.1083},
+    "California City": {"lat": 35.1289, "lon": -117.9856},
+    "Chicago": {"lat": 41.8843, "lon": -87.6324},
+    "Philadelphia": {"lat": 38.8182, "lon": -76.1587},
+    "Houston": {"lat": 29.7608, "lon": -95.3695},
+    "Miami": {"lat": 25.7748, "lon": -80.1977},
+    "Detroit": {"lat": 42.3317, "lon": -83.048}
+}
