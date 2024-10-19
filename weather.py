@@ -10,7 +10,7 @@ class WeatherScraper:
         with open(file_path, 'r') as file:
             return json.load(file)
 
-    def get_page_content(self, url):
+    def _get_page_content(self, url):
         try:
             page = requests.get(url)
             page.raise_for_status()
@@ -18,12 +18,9 @@ class WeatherScraper:
         except requests.exceptions.RequestException as e:
             print(f"Error fetching page content: {e}")
             return None
-
-    def get_weather(self, city, lat, lon):
-        url = f"https://forecast.weather.gov/MapClick.php?lat={lat}&lon={lon}"
-        page_content = self.get_page_content(url)
-
-        if page_content is not None:
+            
+    def _extract_weather_from_page(self, page_content):
+        if page_content:
             soup = BeautifulSoup(page_content, "html.parser")
             div = soup.find('div', id="seven-day-forecast-container")
             if div:
@@ -32,6 +29,12 @@ class WeatherScraper:
                     p = li.find('p', class_="short-desc")
                     if p:
                         return f"\t{city}: {p.get_text()}"
+        return None
+
+    def get_weather(self, city, lat, lon):
+        url = f"https://forecast.weather.gov/MapClick.php?lat={lat}&lon={lon}"
+        page_content = self._get_page_content(url)
+        return self._extract_weather_from_page(page_conetnt)
         
         return f"Failed to retrieve data for {city}. Please check your internet connection."
 
